@@ -1,5 +1,4 @@
 # ZRDAlertView
-AlertVIew whos content view can be customed completly
 
 A very simple alertView, the view for show can be completely customed;
 Adjusted frame for device rotating and keyboard appearing/disappearing.There are also some demos for you~
