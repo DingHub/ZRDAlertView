@@ -516,6 +516,7 @@
 				84ED116F1C8002580063AA83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84ED11701C8002580063AA83 /* Build configuration list for PBXNativeTarget "ZRDAlertViewTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +525,7 @@
 				84ED11721C8002580063AA83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84ED11731C8002580063AA83 /* Build configuration list for PBXNativeTarget "ZRDAlertViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +534,7 @@
 				84ED11751C8002580063AA83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

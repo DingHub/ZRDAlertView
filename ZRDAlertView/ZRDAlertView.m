@@ -10,6 +10,7 @@
 
 @interface ZRDAlertView () {
     UITapGestureRecognizer *_recognizer;
+    CGFloat _keyboardHeight;
 }
 
 @end
@@ -105,6 +106,11 @@
                          [_centerView removeFromSuperview];
                          [self removeGestureRecognizer:_recognizer];
                          [self removeFromSuperview];
+                         
+                         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+                         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+                         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+                         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
                      }
      ];
 }
@@ -151,10 +157,11 @@
     CGSize screenSize = [self actualScreeSize];
     CGSize centerSize = _centerView.bounds.size;
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    _keyboardHeight = keyboardSize.height;
     
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UIInterfaceOrientationIsLandscape(interfaceOrientation) && NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1) {
-        CGFloat tmp = keyboardSize.height;
+        CGFloat tmp = _keyboardHeight;
         keyboardSize.height = keyboardSize.width;
         keyboardSize.width = tmp;
     }
@@ -168,8 +175,9 @@
 }
 
 - (void)keyboardWillHide: (NSNotification *)notification {
+    _keyboardHeight = 0;
     CGSize screenSize = [self actualScreeSize];
-    CGSize centerSize = _centerView ? _centerView.bounds.size : CGSizeZero;
+    CGSize centerSize = _centerView.bounds.size;
     
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
@@ -183,7 +191,7 @@
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
         [self changeOrientationBelowIOS7];
     } else {
-        [self changeOrientationAboveIOS7:notification];
+        [self changeOrientationAboveIOS7];
     }
 }
 
@@ -221,29 +229,24 @@
     
 }
 
-- (void)changeOrientationAboveIOS7: (NSNotification *)notification {
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+- (void)changeOrientationAboveIOS7 {
+    CGSize screenSize = [self actualScreeSize];
+    CGFloat screenWidth = screenSize.width;
+    CGFloat screenHeight = screenSize.height;
     
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
                          CGSize centerSize = _centerView.frame.size;
-                         CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+                         NSLog(@"changeOrientationAboveIOS7-keyboardHeight:%f", _keyboardHeight);
                          self.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-                         _centerView.frame = CGRectMake((screenWidth - centerSize.width) / 2, (screenHeight - keyboardSize.height - centerSize.height) / 2, centerSize.width, centerSize.height);
+                         _centerView.frame = CGRectMake((screenWidth - centerSize.width) / 2, (screenHeight - _keyboardHeight - centerSize.height) / 2, centerSize.width, centerSize.height);
+                         
                      }
                      completion:nil
      ];
     
 }
 
-- (void)dealloc {
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
 
 
 @end
