@@ -18,7 +18,7 @@
 
 @interface ZRDAlertView : UIView
 
-// your costom view for shoe
+// your costom view for show
 @property (nonatomic, strong)UIView *centerView;
 
 // when you tap on the blank , the alert view should dismiss, default is NO
