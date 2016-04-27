@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         self.frame = [UIScreen mainScreen].bounds;
-        
+        _backGroundAlph = 0.4f;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         
@@ -76,7 +76,7 @@
     
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f];
+                         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:_backGroundAlph];
                          _centerView.layer.opacity = 1.0f;
                          _centerView.layer.transform = CATransform3DMakeScale(1, 1, 1);
                      }
@@ -132,6 +132,16 @@
             [self removeGestureRecognizer:_recognizer];
         }
     }
+}
+
+- (void)setBackGroundAlph:(CGFloat)backGroundAlph {
+    if (backGroundAlph > 1.0f) {
+        backGroundAlph = 1.0f;
+    } else if (backGroundAlph < 0.0f) {
+        backGroundAlph = 0;
+    }
+    _backGroundAlph = backGroundAlph;
+    self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:backGroundAlph];
 }
 
 // helper functions

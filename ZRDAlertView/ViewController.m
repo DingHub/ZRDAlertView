@@ -38,6 +38,7 @@
             ZRDAlertView *alertView = [ZRDAlertView new];
             alertView.centerView = view;
             alertView.shouldDismissOnTapBlank = YES;
+            alertView.backGroundAlph = 0.0f;
             [alertView show];
             break;
         }

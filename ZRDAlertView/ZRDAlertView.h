@@ -19,14 +19,16 @@
 @interface ZRDAlertView : UIView
 
 // your costom view for show
-@property (nonatomic, strong)UIView *centerView;
+@property (nonatomic, strong) UIView *centerView;
 
 // when you tap on the blank , the alert view should dismiss, default is NO
-@property (nonatomic, assign)BOOL shouldDismissOnTapBlank;
+@property (nonatomic, assign) BOOL shouldDismissOnTapBlank;
+
+// the background color is black with alph (default is 0.4)
+@property (nonatomic, assign) CGFloat backGroundAlph;
 
 - (void)show;
 
 - (void)dismiss;
-
 
 @end
