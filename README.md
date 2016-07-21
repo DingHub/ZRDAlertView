@@ -5,7 +5,7 @@ Adjusted frame for device rotating and keyboard appearing/disappearing.<br>
 There are also some demos for you~<br>
 <br>
 非常简单的警示视图，警示的内容视图完全自定义；<br>
-内容视图的位置、大小会适应屏幕，在旋转时也会相应调整.<br>
+内容视图的位置、大小会适应屏幕旋转,在键盘弹入弹出时也会相应调整.<br>
 有一些示例可以看看：<br>
 
 ![](https://github.com/DingHub/ScreenShots/blob/master/ZRDAlertView/0.png)
