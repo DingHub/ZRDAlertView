@@ -9,15 +9,13 @@
 #import "ZRDAlertView.h"
 
 @interface ZRDAlertView () {
-    UITapGestureRecognizer *_recognizer;
     CGFloat _keyboardHeight;
 }
-
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @end
 
 
 @implementation ZRDAlertView
-
 
 - (id)init {
     self = [super init];
@@ -104,7 +102,7 @@
                      }
                      completion:^(BOOL finished) {
                          [_centerView removeFromSuperview];
-                         [self removeGestureRecognizer:_recognizer];
+                         [self removeGestureRecognizer:_tapRecognizer];
                          [self removeFromSuperview];
                          
                          [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
@@ -113,6 +111,16 @@
                          [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
                      }
      ];
+}
+
+//getters
+
+- (UITapGestureRecognizer *)tapRecognizer {
+    if (_tapRecognizer == nil) {
+        _tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector((dismiss))];
+        [self addGestureRecognizer:_tapRecognizer];
+    }
+    return _tapRecognizer;
 }
 
 //setters
@@ -125,12 +133,9 @@
 - (void)setShouldDismissOnTapBlank:(BOOL)shouldDismissOnTapBlank {
     _shouldDismissOnTapBlank = shouldDismissOnTapBlank;
     if (shouldDismissOnTapBlank) {
-        if (_shouldDismissOnTapBlank) {
-            _recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector((dismiss))];
-            [self addGestureRecognizer:_recognizer];
-        } else {
-            [self removeGestureRecognizer:_recognizer];
-        }
+        self.tapRecognizer.enabled = YES;
+    } else {
+        _tapRecognizer.enabled = NO;
     }
 }
 
