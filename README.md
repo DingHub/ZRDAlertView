@@ -13,4 +13,4 @@ There are also some demos for you~<br>
 Thanks for [ios-custom-alertview](https://github.com/wimagguc/ios-custom-alertview )<br>
 in fact, this alert view is a lite of  the linked one.<br>
 感谢[ios-custom-alertview](https://github.com/wimagguc/ios-custom-alertview )<br>
-实际上，这个警示视图是链接里的自定义警示视图的简化版本。<br>
+实际上，这个警示视图是链接里的自定义警示视图的简化版本<br>
