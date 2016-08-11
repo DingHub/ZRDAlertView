@@ -78,7 +78,7 @@
                          _centerView.layer.opacity = 1.0f;
                          _centerView.layer.transform = CATransform3DMakeScale(1, 1, 1);
                      }
-                     completion:NULL
+                     completion:nil
      ];
 }
 
@@ -101,14 +101,9 @@
                          _centerView.layer.opacity = 0.0f;
                      }
                      completion:^(BOOL finished) {
+                         _backGroundAlph = 0.4f;
                          [_centerView removeFromSuperview];
-                         [self removeGestureRecognizer:_tapRecognizer];
                          [self removeFromSuperview];
-                         
-                         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-                         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-                         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-                         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
                      }
      ];
 }
@@ -262,6 +257,14 @@
     
 }
 
-
+- (void)dealloc {
+    
+    [self removeGestureRecognizer:_tapRecognizer];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+}
 
 @end

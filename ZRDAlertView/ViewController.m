@@ -12,6 +12,8 @@
 
 @interface ViewController ()
 
+@property (nonatomic, strong) ZRDAlertView *alertView;
+
 @end
 
 @implementation ViewController
@@ -35,35 +37,31 @@
             CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth*0.56, screenWidth*0.70)];
             view.backgroundColor = [UIColor greenColor];
-            ZRDAlertView *alertView = [ZRDAlertView new];
-            alertView.centerView = view;
-            alertView.shouldDismissOnTapBlank = YES;
-            alertView.backGroundAlph = 0.0f;
-            [alertView show];
+            self.alertView.centerView = view;
+            self.alertView.shouldDismissOnTapBlank = YES;
+            self.alertView.backGroundAlph = 0.0f;
+            [self.alertView show];
             break;
         }
         case 1: {
-            ZRDAlertView *alertView = [ZRDAlertView new];
             InputView *view = [InputView view];
             [view.textfield becomeFirstResponder];
             [view.button addTarget:self action:@selector(inputViewButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-            alertView.centerView = view;
-            alertView.shouldDismissOnTapBlank = YES;
-            [alertView show];
+            self.alertView.centerView = view;
+            self.alertView.shouldDismissOnTapBlank = YES;
+            [self.alertView show];
             break;
         }
         case 2: {
             [self.view endEditing:YES];
-            ZRDAlertView *alertView = [ZRDAlertView new];
-            alertView.centerView = [self creatViewWithCancelButton];
-            alertView.shouldDismissOnTapBlank = NO;
-            [alertView show];
+            self.alertView.centerView = [self creatViewWithCancelButton];
+            self.alertView.shouldDismissOnTapBlank = NO;
+            [self.alertView show];
             break;
         }
         default: {
-            ZRDAlertView *alertVIew = [ZRDAlertView new];
-            [alertVIew show];
-            alertVIew.shouldDismissOnTapBlank = YES;
+            [self.alertView show];
+            self.alertView.shouldDismissOnTapBlank = YES;
         }
     }
 }
@@ -108,6 +106,13 @@
     NSLog(@"Cancel button");
     ZRDAlertView *view = (ZRDAlertView *)button.superview.superview;
     [view dismiss];
+}
+
+- (ZRDAlertView *)alertView {
+    if (_alertView == nil) {
+        _alertView = [ZRDAlertView new];
+    }
+    return _alertView;
 }
 
 @end
