@@ -1,6 +1,6 @@
 # ZRDAlertView
 
-A very simple alert view, the view for show can be completely customed;<br>
+A very simple alert contanner view, the view for show can be completely customed;<br>
 Adjusted frame for device rotating and keyboard appearing/disappearing.<br>
 There are also some demos for you~<br>
 <br>
